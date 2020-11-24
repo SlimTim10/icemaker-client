@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 // import { last } from 'ramda'
 import { makeStyles } from '@material-ui/core/styles';
@@ -62,19 +62,19 @@ export default function App() {
   const [randomFlag, setRandomFlag] = useState(false)
   const [outputType, setOutputType] = useState('flagSolutions')
 
-  const formData = new FormData()
-
   const handleSubmit = event => {
     event.preventDefault();
 
+    const formData = new FormData();
     [...files].forEach(x => formData.append('multiplefiles', x))
     formData.append('random', randomFlag)
     formData.append('outFlag', outputType)
     formData.append('submit1', 'putDatabase') // temporary
 
-    axios.post('/uploadasc', formData, {
+    axios.post('/uploadprb', formData, {
       headers: {
-        'content-type': 'multipart/form-data'
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Content-Type': 'multipart/form-data'
       },
       crossDomain: true // needed?
     }).then(response => {
