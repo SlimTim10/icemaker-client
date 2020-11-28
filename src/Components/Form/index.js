@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 
@@ -8,10 +8,6 @@ import RandomInput from './RandomInput'
 import OutputTypeInput from './OutputTypeInput'
 
 const useStyles = makeStyles((theme) => ({
-  options: {
-    display: 'flex',
-    justifyContent: 'space-around'
-  },
   submit: {
     display: 'flex',
     justifyContent: 'center'
@@ -38,8 +34,10 @@ const Form = ({ submitForm }) => {
     <form onSubmit={handleSubmit}>
       <FileInput {...{files, setFiles}} />
 
-      <Box className={classes.options} p={3}>
+      <Box pt={3} pb={3}>
         <RandomInput {...{randomFlag, setRandomFlag}} />
+      </Box>
+      <Box pb={3}>
         <OutputTypeInput {...{outputType, setOutputType}} />
       </Box>
 
