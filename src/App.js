@@ -55,12 +55,13 @@ const App = () => {
   const submitForm = ({
     files, randomFlag, outputType
   }) => {
+    setIsLoading(true)
+    
     const formData = new FormData();
     [...files].forEach(x => formData.append('multiplefiles', x))
     formData.append('random', randomFlag)
     formData.append('outFlag', outputType)
     formData.append('submit1', 'putDatabase') // temporary
-    setIsLoading(true)
 
     axios.post('/uploadprb', formData, {
       headers: {
@@ -71,9 +72,13 @@ const App = () => {
       console.log('response:', response)
       console.log('data:', response.data)
       if (!response.data) return;
+      // Error handling?
       setPdfData(response.data.PdfContent)
       setPdfName(response.data.PdfName)
       setIsLoading(false)
+      // Show in this order:
+      // setErrorIcemaker(response.data.ErrorIcemaker)
+      // setErrorLatex(response.data.ErrorLatex)
     })
   }
 
