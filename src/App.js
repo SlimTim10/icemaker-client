@@ -9,42 +9,64 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-import Form from './Components/Form'
+import Options from './Components/Options'
 
 import './App.css'
 
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
-    justifyContent: 'space-between'
+    height: '100vh',
+    padding: 0,
   },
-  leftSide: {
-    flex: '1'
+  options: {
+    width: '300px',
+    borderRight: '1px solid black'
   },
-  rightSide: {
-    flex: '1'
+  gutter: {
+    width: '14px',
+    flexShrink: 0
   },
-  loader: {
+  main: {
+    flexGrow: 1,
     display: 'flex',
-    justifyContent: 'center'
+    flexDirection: 'column',
+    borderLeft: '1px solid black'
+  },
+  mainNav: {
+    height: '42px',
+    borderBottom: '1px solid black'
+  },
+  mainContent: {
+    display: 'flex',
+    height: '100%'
+  },
+  editor: {
+    flexGrow: 1,
+    borderRight: '1px solid black'
   },
   pdf: {
+    flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100vh',
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    borderLeft: '1px solid black'
   },
-  downloadPdf: {
-    maxWidth: 200,
-    marginTop: 6,
-    marginBottom: 6
-  }
+  // downloadPdf: {
+  //   maxWidth: 200,
+  //   marginTop: 6,
+  //   marginBottom: 6
+  // }
 }))
 
 const App = () => {
   const classes = useStyles()
+
+  const [drawings, setDrawings] = useState([])
+  const [randomFlag, setRandomFlag] = useState(false)
+  const [outputType, setOutputType] = useState('flagSolutions')
   
   const [pdfData, setPdfData] = useState(null)
   const [pdfName, setPdfName] = useState(null)
@@ -52,13 +74,11 @@ const App = () => {
 
   const pdfObjectSrc = `data:application/pdf;base64,${pdfData}`
 
-  const submitForm = ({
-    files, randomFlag, outputType
-  }) => {
+  const compile = () => {
     setIsLoading(true)
     
     const formData = new FormData();
-    [...files].forEach(x => formData.append('multiplefiles', x))
+    [...drawings].forEach(x => formData.append('multiplefiles', x))
     formData.append('random', randomFlag)
     formData.append('outFlag', outputType)
     formData.append('submit1', 'putDatabase') // temporary
@@ -86,18 +106,50 @@ const App = () => {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth={false} className={classes.container}>
-        
-        <Box className={classes.leftSide}>
-          <Form {...{submitForm}} />
+
+        <Box className={classes.options}>
+          <Options
+            {...{
+              compile,
+              randomFlag,
+              setRandomFlag,
+              outputType,
+              setOutputType,
+              drawings,
+              setDrawings
+            }}
+          />
         </Box>
-        
-        <Box className={classes.rightSide}>
-          <Box className={classes.pdf}>
-            {isLoading && <CircularProgress />}
-            {pdfName && <Button className={classes.downloadPdf} variant="contained" color="primary" component={Link} href={pdfObjectSrc} download={pdfName + '.pdf'}>Download PDF</Button>}
-            {pdfData && <iframe src={pdfObjectSrc} height="100%" width="100%" type="application/pdf" title="pdf"></iframe>}
+
+        <Box className={classes.gutter} />
+
+        <Box className={classes.main}>
+          <Box className={classes.mainNav}>
+            untitled.prb etc
+            {/* <Box className={classes.compile}>Compile</Box> */}
+          </Box>
+          <Box className={classes.mainContent}>
+            <textarea className={classes.editor} />
+            <Box className={classes.gutter} />
+            <Box className={classes.pdf}>
+              {isLoading && <CircularProgress />}
+              {pdfName && <Button className={classes.downloadPdf} variant="contained" color="primary" component={Link} href={pdfObjectSrc} download={pdfName + '.pdf'}>Download PDF</Button>}
+              {pdfData && <iframe src={pdfObjectSrc} height="100%" width="100%" type="application/pdf" title="pdf"></iframe>}
+            </Box>
           </Box>
         </Box>
+
+        {/* <Box className={classes.leftSide}> */}
+        {/*   <Form {...{submitForm}} /> */}
+        {/* </Box> */}
+        
+        {/* <Box className={classes.rightSide}> */}
+        {/*   <Box className={classes.pdf}> */}
+        {/*     {isLoading && <CircularProgress />} */}
+        {/*     {pdfName && <Button className={classes.downloadPdf} variant="contained" color="primary" component={Link} href={pdfObjectSrc} download={pdfName + '.pdf'}>Download PDF</Button>} */}
+        {/*     {pdfData && <iframe src={pdfObjectSrc} height="100%" width="100%" type="application/pdf" title="pdf"></iframe>} */}
+        {/*   </Box> */}
+        {/* </Box> */}
         
       </Container>
     </React.Fragment>
