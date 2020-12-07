@@ -38,7 +38,7 @@ const OutputTypeInput = ({ outputType, setOutputType }) => {
       label="Output"
       value={outputType}
       onChange={handleChange}
-      helperText="Please select output type"
+      helperText=""
       >
       {outputMenu}
     </TextField>

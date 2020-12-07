@@ -48,7 +48,7 @@ const FileInput = ({ files, setFiles }) => {
     <div>
       <div>
         <input
-          accept="*"
+          accept=".asc,.prb"
           id="upload-file"
           type="file"
           multiple
