@@ -38,7 +38,7 @@ const App = () => {
   const [outputType, setOutputType] = useState('flagSolutions')
   
   const [pdfData, setPdfData] = useState(null)
-  const [pdfName, setPdfName] = useState(null)
+  const [documentName, setDocumentName] = useState('untitled')
   const [isLoading, setIsLoading] = useState(false)
   const [compileButtonText, setCompileButtonText] = useState('Compile')
   const [pdfPlaceholder, setPdfPlaceholder] = useState('Press compile to view PDF')
@@ -51,6 +51,7 @@ const App = () => {
     const formData = new FormData();
     [...drawings].forEach(x => formData.append('multiplefiles', x))
     formData.append('prbText', editorContent)
+    formData.append('prbName', documentName)
     formData.append('random', randomFlag)
     formData.append('outFlag', outputType)
     formData.append('submit1', 'putDatabase') // temporary
@@ -67,7 +68,6 @@ const App = () => {
       if (!response.data) return;
       // Error handling?
       setPdfData(response.data.PdfContent)
-      setPdfName(response.data.PdfName)
       setIsLoading(false)
       setCompileButtonText('Recompile')
       
@@ -107,7 +107,8 @@ const App = () => {
           <Main
             {...{
               pdfData,
-              pdfName,
+              documentName,
+              setDocumentName,
               isLoading,
               pdfPlaceholder,
               editorContent,

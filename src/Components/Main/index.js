@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Main = ({
   pdfData,
-  pdfName,
+  documentName,
+  setDocumentName,
   isLoading,
   pdfPlaceholder,
   editorContent,
@@ -41,8 +42,6 @@ const Main = ({
   compile
 }) => {
   const classes = useStyles()
-
-  const [documentName, setDocumentName] = useState('untitled')
 
   const pdfObjectSrc = `data:application/pdf;base64,${pdfData}`
 
