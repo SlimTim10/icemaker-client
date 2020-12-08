@@ -5,8 +5,8 @@ import IconButton from '@material-ui/core/IconButton'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Link from '@material-ui/core/Link'
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 
 const useStyles = makeStyles((theme) => ({
   left: {
@@ -128,8 +128,8 @@ const Header = ({
           onClick={compile}
           variant="contained"
           color="primary"
-          startIcon={<KeyboardArrowUpIcon />}
-          endIcon={<KeyboardArrowDownIcon />}
+          startIcon={<ArrowUpwardIcon />}
+          endIcon={<ArrowDownwardIcon />}
         >
           {compileButtonText}
         </Button>
