@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Link from '@material-ui/core/Link'
+import ToggleButton from '@material-ui/lab/ToggleButton'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 
@@ -20,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       textDecoration: 'none'
     }
+  },
+  errorRed: {
+    backgroundColor: 'rgb(255, 0, 0, 0.6)',
+    color: 'black'
   }
 }))
 
@@ -29,6 +34,10 @@ const Header = ({
   documentName,
   setDocumentName,
   pdfData,
+  showErrorLog,
+  setShowErrorLog,
+  errorIcemaker,
+  errorLatex,
   compileButtonText,
   compile
 }) => {
@@ -109,18 +118,29 @@ const Header = ({
         />
       </Box>
       <Box className={classes.right}>
-        {pdfData && 
-         <Button
-           className={classes.downloadPdf}
-           variant="contained"
-           color="default"
-           component={Link}
-           href={pdfObjectSrc}
-           download={`${documentName}.pdf`}
-           startIcon={<DownloadIcon />}
-         >
-           Download PDF
-         </Button>
+        <ToggleButton
+          classes={{ root: errorIcemaker && errorLatex && classes.errorRed }}
+            value="errorLog"
+            size="small"
+            selected={showErrorLog}
+            onChange={() => setShowErrorLog(!showErrorLog)}
+          >
+            Error log
+          </ToggleButton>
+        {pdfData &&
+         <Box ml={1} display="inline">
+           <Button
+             className={classes.downloadPdf}
+             variant="contained"
+             color="default"
+             component={Link}
+             href={pdfObjectSrc}
+             download={`${documentName}.pdf`}
+             startIcon={<DownloadIcon />}
+           >
+             Download PDF
+           </Button>
+         </Box>
         }
       </Box>
       <Box display="flex" justifyContent="center">

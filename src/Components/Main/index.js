@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 
@@ -6,6 +5,7 @@ import Gutter from '../Gutter'
 import Header from './Header'
 import Editor from './Editor'
 import PdfViewer from './PdfViewer'
+import ErrorLog from './ErrorLog'
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -19,15 +19,11 @@ const useStyles = makeStyles((theme) => ({
   editor: {
     flex: '1 1 0'
   },
-  pdf: {
+  viewer: {
     flex: '1 1 0',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: theme.palette.background.paper,
-    borderLeft: '1px solid black'
-  },
+    borderLeft: '1px solid black',
+    backgroundColor: theme.palette.background.paper
+  }
 }))
 
 const Main = ({
@@ -38,6 +34,10 @@ const Main = ({
   pdfPlaceholder,
   editorContent,
   setEditorContent,
+  showErrorLog,
+  setShowErrorLog,
+  errorIcemaker,
+  errorLatex,
   compileButtonText,
   compile
 }) => {
@@ -55,6 +55,10 @@ const Main = ({
             documentName,
             setDocumentName,
             pdfData,
+            showErrorLog,
+            setShowErrorLog,
+            errorIcemaker,
+            errorLatex,
             compileButtonText,
             compile
           }} />
@@ -64,8 +68,21 @@ const Main = ({
           <Editor {...{ editorContent, setEditorContent }} />
         </Box>
         <Gutter />
-        <Box className={classes.pdf}>
-          <PdfViewer {...{ isLoading, pdfData, pdfObjectSrc, pdfPlaceholder }} />
+        <Box className={classes.viewer}>
+          { showErrorLog
+            ? <ErrorLog
+                {...{
+                  errorIcemaker,
+                  errorLatex
+                }} />
+            : <PdfViewer
+                {...{
+                  isLoading,
+                  pdfData,
+                  pdfObjectSrc,
+                  pdfPlaceholder
+                }} />
+          }
         </Box>
       </Box>
     </>

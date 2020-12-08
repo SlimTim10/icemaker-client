@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   options: {
     width: '300px',
+    flex: '0 0 300px',
     borderRight: '1px solid black'
   },
   main: {
@@ -43,9 +44,13 @@ const App = () => {
   const [compileButtonText, setCompileButtonText] = useState('Compile')
   const [pdfPlaceholder, setPdfPlaceholder] = useState('Press compile to view PDF')
   const [editorContent, setEditorContent] = useState('')
+  const [showErrorLog, setShowErrorLog] = useState(false)
+  const [errorIcemaker, setErrorIcemaker] = useState('')
+  const [errorLatex, setErrorLatex] = useState('')
 
   const compile = async () => {
     setIsLoading(true)
+    setShowErrorLog(false)
     setCompileButtonText('Compiling...')
     
     const formData = new FormData();
@@ -63,17 +68,18 @@ const App = () => {
           'Content-Type': 'multipart/form-data'
         }
       })
+      
       console.log('response:', response) // tmp
       console.log('data:', response.data)  // tmp
+      
       if (!response.data) return;
-      // Error handling?
+      
       setPdfData(response.data.PdfContent)
+      setErrorIcemaker(response.data.ErrorIcemaker)
+      setErrorLatex(response.data.ErrorLatex)
       setIsLoading(false)
       setCompileButtonText('Recompile')
-      
-      // Show in this order:
-      // setErrorIcemaker(response.data.ErrorIcemaker)
-      // setErrorLatex(response.data.ErrorLatex)
+      setShowErrorLog(!response.data.PdfContent)
     } catch (e) {
       console.error(e)
       setIsLoading(false)
@@ -113,6 +119,10 @@ const App = () => {
               pdfPlaceholder,
               editorContent,
               setEditorContent,
+              showErrorLog,
+              setShowErrorLog,
+              errorIcemaker,
+              errorLatex,
               compileButtonText,
               compile
             }}
