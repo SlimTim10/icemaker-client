@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
@@ -25,10 +24,10 @@ const Options = ({
   const classes = useStyles()
   
   return (
-    <Box>
+    <>
       <Typography
         className={classes.header}
-        variant="h4"
+        variant="h5"
       >
         Options
       </Typography>
@@ -41,7 +40,7 @@ const Options = ({
           <Drawings {...{drawings, setDrawings}} />
         </Box>
       </Box>
-    </Box>
+    </>
   )
 }
 

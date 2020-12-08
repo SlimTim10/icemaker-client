@@ -30,13 +30,12 @@ const Drawings = ({ drawings, setDrawings }) => {
     if (![...event.target.files].some(file => drawings.find(x => x.name === file.name))) {
       setDrawings(prev => [...prev, ...event.target.files])
     }
-    setInputVal(event.target.value)
+    // Reset the value of the input element so the change event will get triggered again if the previous file is selected again
+    setInputVal('')
   }
 
   const handleDeleteFile = file => event => {
     setDrawings(prev => [...prev].filter(x => x.name !== file.name))
-    // Reset the value of the input element so the change event will get triggered again if the previous file is selected again
-    setInputVal('')
   }
 
   const createFileElement = file => {
@@ -59,19 +58,19 @@ const Drawings = ({ drawings, setDrawings }) => {
   )
   
   return (
-    <Box>
+    <>
       <Box display="flex" alignItems="center">
         <FolderIcon style={{ marginRight: '5px' }} />
         <Typography variant="body1">drawings</Typography>
         <input
           accept=".asc"
-          id="upload-file"
+          id="upload-drawings"
           type="file"
           multiple
           onChange={handleChangeFile}
           value={inputVal}
           />
-        <label htmlFor="upload-file">
+        <label htmlFor="upload-drawings">
           <IconButton aria-label="upload" component="span">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
           </IconButton>
@@ -80,7 +79,7 @@ const Drawings = ({ drawings, setDrawings }) => {
       {fileList}
       
 
-    </Box>
+    </>
   )
 }
 
