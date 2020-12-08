@@ -43,10 +43,6 @@ const Header = ({
     const fileName = file.name.slice(0, file.name.lastIndexOf('.'))
     const text = await file.text()
     
-    if (editorContent !== '') {
-      // TODO: confirmation modal
-    }
-    
     setEditorContent(text)
     setDocumentName(fileName)
     
