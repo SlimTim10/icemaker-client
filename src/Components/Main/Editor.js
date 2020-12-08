@@ -1,24 +1,28 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles((theme) => ({
-  editor: {
-    height: '100%',
-    width: '100%'
-  }
-}))
+import AceEditor from "react-ace"
+import "ace-builds/src-noconflict/mode-latex"
+import "ace-builds/src-noconflict/theme-clouds"
 
 const Editor = ({ editorContent, setEditorContent }) => {
-  const classes = useStyles()
-
-  const handleChange = event => {
-    setEditorContent(event.target.value)
+  const handleChange = content => {
+    setEditorContent(content)
   }
   
   return (
-    <textarea
-      className={classes.editor}
-      value={editorContent}
+    <AceEditor
+      mode="latex"
+      theme="clouds"
+      name="editor"
       onChange={handleChange}
+      value={editorContent}
+      width="100%"
+      height="100%"
+      fontSize={14}
+      showPrintMargin={false}
+      showGutter={true}
+      highlightActiveLine={true}
+      editorProps={{ $blockScrolling: true }}
     />
   )
 }
