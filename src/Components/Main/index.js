@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
 
 import Gutter from '../Gutter'
 import Header from './Header'
@@ -35,12 +34,14 @@ const Main = ({
   pdfData,
   pdfName,
   isLoading,
+  pdfPlaceholder,
+  editorContent,
+  setEditorContent,
   compileButtonText,
   compile
 }) => {
   const classes = useStyles()
 
-  const [editorContent, setEditorContent] = useState('')
   const [documentName, setDocumentName] = useState('untitled')
 
   const pdfObjectSrc = `data:application/pdf;base64,${pdfData}`
@@ -65,7 +66,7 @@ const Main = ({
         </Box>
         <Gutter />
         <Box className={classes.pdf}>
-          <PdfViewer {...{ isLoading, pdfData, pdfObjectSrc }} />
+          <PdfViewer {...{ isLoading, pdfData, pdfObjectSrc, pdfPlaceholder }} />
         </Box>
       </Box>
     </>

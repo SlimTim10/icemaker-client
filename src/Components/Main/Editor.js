@@ -1,5 +1,3 @@
-import { makeStyles } from '@material-ui/core/styles'
-
 import AceEditor from "react-ace"
 import "ace-builds/src-noconflict/mode-latex"
 import "ace-builds/src-noconflict/theme-clouds"

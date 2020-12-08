@@ -1,7 +1,12 @@
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Typography from '@material-ui/core/Typography'
 
-const PdfViewer = ({ isLoading, pdfData, pdfObjectSrc }) => {
+const PdfViewer = ({
+  isLoading,
+  pdfData,
+  pdfObjectSrc,
+  pdfPlaceholder
+}) => {
   return (
     isLoading ? <CircularProgress />
     : pdfData ? (
@@ -12,7 +17,7 @@ const PdfViewer = ({ isLoading, pdfData, pdfObjectSrc }) => {
         type="application/pdf"
         title="pdf">
       </iframe>
-    ) : <Typography variant="h6">Press compile to view PDF</Typography>
+    ) : <Typography variant="h6">{pdfPlaceholder}</Typography>
   )
 }
 
